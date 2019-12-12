@@ -1,0 +1,99 @@
+<html>
+  <head>
+    <title>BORED PANDA CLOCK</title>
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Acme&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Catamaran&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Bree+Serif&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <h1>BORED PANDA CLOCK</h1>
+      </header>
+
+      <h4>
+        I JUST WANT TO SLEEP <br />
+        <span id="clock">Clock goes here</span>
+      </h4>
+
+      <img id="boredpanda" src="img/panda-time.jpeg" alt="bored panda" />
+
+      <blockquote id="timeEvent">
+        This is where time events are reported
+      </blockquote>
+
+      set Wake Up Time
+      <div class="toggle" id="wakeUpTimeSelector">
+        <input
+          type="radio"
+          name="wake"
+          value="0"
+          id="morning"
+          checked="checked"
+        />
+        <label for="morning">Morning</label>
+        <input type="radio" name="wake" value="1" id="afternoon" />
+        <label for="afternoon">Afternoon</label>
+        <input type="radio" name="wake" value="2" id="evening" />
+        <label for="evening">Evening</label>
+        <input type="radio" name="wake" value="3" id="night" />
+        <label for="night">Night</label>
+      </div>
+      <br />
+      set Lunch Time
+      <div class="toggle" id="lunchTimeSelector">
+        <input type="radio" name="lunch" value="0" id="morning-b" />
+        <label for="morning-b">Morning</label>
+        <input
+          type="radio"
+          name="lunch"
+          value="1"
+          id="afternoon-b"
+          checked="checked"
+        />
+        <label for="afternoon-b">Afternoon</label>
+        <input type="radio" name="lunch" value="2" id="evening-b" />
+        <label for="evening-b">Evening</label>
+        <input type="radio" name="lunch" value="3" id="night-b" />
+        <label for="night-b">Night</label>
+      </div>
+      <br />
+      set Nap Time
+      <div class="toggle" id="napTimeSelector">
+        <input type="radio" name="nap" value="0" id="morning-c" />
+        <label for="morning-c">Morning</label>
+        <input type="radio" name="nap" value="1" id="afternoon-c" />
+        <label for="afternoon-c">Afternoon</label>
+        <input type="radio" name="nap" value="2" id="evening-c" />
+        <label for="evening-c">Evening</label>
+        <input
+          type="radio"
+          name="nap"
+          value="3"
+          id="night-c"
+          checked="checked"
+        />
+        <label for="night-c">Night</label>
+      </div>
+      <br />
+      <button id="partyTimeButton">Party!</button>
+
+      <footer>
+        <p>www.saifsultan.co</p>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="script.js"></script>
+  </body>
+</html>
