@@ -36,8 +36,9 @@ h6 {
   font-family: "Acme", sans-serif;
 }
 
-#lolcatImage {
-  max-width: 30em;
+#boredpandaImage {
+  /* max-width: 30em; */
+  width: 25em;
 }
 
 blockquote {

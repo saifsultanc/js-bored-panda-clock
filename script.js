@@ -1,7 +1,7 @@
-const MORNING = 0,
-  AFTERNOON = 1,
-  EVENING = 2,
-  NIGHT = 3;
+const MORNING = "0",
+  AFTERNOON = "1",
+  EVENING = "2",
+  NIGHT = "3";
 
 // print the time out
 function digitalTime() {
@@ -16,7 +16,8 @@ function digitalTime() {
   seconds < 10 ? (seconds = "0" + seconds) : seconds;
 
   let format;
-  hours < 12 ? (format = "AM") : (format = "PM"), (hours -= 12);
+  hours < 12 ? (format = "AM") : (format = "PM");
+  if (hours > 12) hours -= 12;
 
   let clock = document.getElementById("clock");
   clock.innerHTML = hours + ":" + minutes + ":" + seconds + " " + format;
@@ -50,6 +51,7 @@ function pandaTask() {
   }
   if (isPandaUpdateRequired(wakeUpValue, lunchValue, napValue)) {
     processPandaUpdate(wakeUpValue, lunchValue, napValue);
+    updatePandaStatus(wakeUpValue, lunchValue, napValue);
   }
 }
 
@@ -61,12 +63,7 @@ function isPandaUpdateRequired(wakeUpValue, lunchValue, napValue) {
     napStatus === napValue
   )
     return false;
-  else {
-    wakeUpStatus = wakeUpValue;
-    lunchStatus = lunchValue;
-    napStatus = napValue;
-  }
-  return true;
+  else return true;
 }
 
 // current time slab is ?
@@ -90,28 +87,47 @@ function isPandaCrazy(wakeUpValue, lunchValue, napValue) {
   else return false;
 }
 
+function updatePandaStatus(wakeUpValue, lunchValue, napValue) {
+  wakeUpStatus = wakeUpValue;
+  lunchStatus = lunchValue;
+  napStatus = napValue;
+}
+
 // get the right output out to the user
 function processPandaUpdate(wakeUpValue, lunchValue, napValue) {
   let report = document.getElementById("timeEvent");
+  let picture = document.getElementById("boredpandaImage");
   if (isPandaCrazy(wakeUpValue, lunchValue, napValue)) {
     report.innerHTML = "CRAZY PANDA!";
-  }
-  let currentValue = getCurrentTime();
-  switch (currentValue) {
-    case wakeUpValue:
-      report.innerHTML = "GOOD MORNING PANDA!";
-      break;
-    case lunchValue:
-      report.innerHTML = "BON APETIT!";
-      break;
-    case napValue:
-      report.innerHTML = "SWEET DREAMS!";
-      break;
-    default:
-      report.innerHTML = "PANDA MESSED UP! Restart application.";
+    picture.src = "img/panda-crazy.gif";
+  } else {
+    let currentValue = getCurrentTime();
+    switch (currentValue) {
+      case wakeUpValue:
+        report.innerHTML = "GOOD MORNING PANDA!";
+        picture.src = "img/panda-wake-up.gif";
+        break;
+      case lunchValue:
+        report.innerHTML = "BON APETIT!";
+        picture.src = "img/panda-lunch.gif";
+        break;
+      case napValue:
+        report.innerHTML = "SWEET DREAMS!";
+        picture.src = "img/panda-sleep.gif";
+        break;
+      default:
+        report.innerHTML = "Panda missing! Must be rolling around";
+        picture.src = "img/panda-rolling.gif";
+    }
   }
 }
 
 // tasks to keep on processing
 setInterval(digitalTime, 1000);
-setInterval(pandaTask, 1000);
+document
+  .getElementById("wakeUpTimeSelector")
+  .addEventListener("click", pandaTask);
+document
+  .getElementById("lunchTimeSelector")
+  .addEventListener("click", pandaTask);
+document.getElementById("napTimeSelector").addEventListener("click", pandaTask);
