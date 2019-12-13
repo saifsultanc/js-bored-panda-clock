@@ -3,6 +3,11 @@ const MORNING = "0",
   EVENING = "2",
   NIGHT = "3";
 
+// initial status values
+let wakeUpStatus = MORNING,
+  lunchStatus = AFTERNOON,
+  napStatus = NIGHT;
+
 // print the time out
 function digitalTime() {
   let date = new Date();
@@ -24,10 +29,8 @@ function digitalTime() {
 }
 
 // process panda selection
-let wakeUpStatus = MORNING,
-  lunchStatus = AFTERNOON,
-  napStatus = NIGHT;
 function pandaTask() {
+  // process wake time
   let wakeUpOptions = document.getElementsByName("wake");
   let wakeUpValue;
   for (let i = 0; i < wakeUpOptions.length; i++) {
@@ -35,6 +38,8 @@ function pandaTask() {
       wakeUpValue = wakeUpOptions[i].value;
     }
   }
+
+  // process lunch time
   let lunchOptions = document.getElementsByName("lunch");
   let lunchValue;
   for (let i = 0; i < lunchOptions.length; i++) {
@@ -42,6 +47,8 @@ function pandaTask() {
       lunchValue = lunchOptions[i].value;
     }
   }
+
+  // process nap time
   let napOptions = document.getElementsByName("nap");
   let napValue;
   for (let i = 0; i < napOptions.length; i++) {
@@ -49,13 +56,15 @@ function pandaTask() {
       napValue = napOptions[i].value;
     }
   }
+
+  // process panda update only when necessary
   if (isPandaUpdateRequired(wakeUpValue, lunchValue, napValue)) {
     processPandaUpdate(wakeUpValue, lunchValue, napValue);
     updatePandaStatus(wakeUpValue, lunchValue, napValue);
   }
 }
 
-// only update is necessary
+// only update if necessary (true/false)
 function isPandaUpdateRequired(wakeUpValue, lunchValue, napValue) {
   if (
     wakeUpStatus === wakeUpValue &&
@@ -71,8 +80,8 @@ function getCurrentTime() {
   const hours = new Date().getHours();
 
   if (hours >= 6 && hours < 12) return MORNING;
-  else if (hours >= 12 && hours < 4) return AFTERNOON;
-  else if (hours >= 4 && hours <= 8) return EVENING;
+  else if (hours >= 12 && hours < 16) return AFTERNOON;
+  else if (hours >= 16 && hours <= 20) return EVENING;
   else NIGHT;
 }
 
@@ -87,6 +96,7 @@ function isPandaCrazy(wakeUpValue, lunchValue, napValue) {
   else return false;
 }
 
+// set current values as the overall status values
 function updatePandaStatus(wakeUpValue, lunchValue, napValue) {
   wakeUpStatus = wakeUpValue;
   lunchStatus = lunchValue;
@@ -97,8 +107,10 @@ function updatePandaStatus(wakeUpValue, lunchValue, napValue) {
 function processPandaUpdate(wakeUpValue, lunchValue, napValue) {
   let report = document.getElementById("timeEvent");
   let picture = document.getElementById("boredpandaImage");
+
+  // crazy panda result
   if (isPandaCrazy(wakeUpValue, lunchValue, napValue)) {
-    report.innerHTML = "CRAZY PANDA!";
+    report.innerHTML = "CRAZY PANDA!<br>You can't do 2 things at a time!";
     picture.src = "img/panda-crazy.gif";
   } else {
     let currentValue = getCurrentTime();
@@ -116,14 +128,25 @@ function processPandaUpdate(wakeUpValue, lunchValue, napValue) {
         picture.src = "img/panda-sleep.gif";
         break;
       default:
+        // when panda isn't doing anything right now
         report.innerHTML = "Panda missing! Must be rolling around";
         picture.src = "img/panda-rolling.gif";
     }
   }
 }
 
-// tasks to keep on processing
+// party mode result
+function partyPanda() {
+  let report = document.getElementById("timeEvent");
+  let picture = document.getElementById("boredpandaImage");
+  report.innerHTML = "Panda PARTYYY!!!!";
+  picture.src = "img/panda-party.gif";
+}
+
+// time automatically updates every second
 setInterval(digitalTime, 1000);
+
+// handle click events on wake up, lunch, nap and party selections
 document
   .getElementById("wakeUpTimeSelector")
   .addEventListener("click", pandaTask);
@@ -131,3 +154,6 @@ document
   .getElementById("lunchTimeSelector")
   .addEventListener("click", pandaTask);
 document.getElementById("napTimeSelector").addEventListener("click", pandaTask);
+document
+  .getElementById("partyTimeButton")
+  .addEventListener("click", partyPanda);

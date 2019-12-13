@@ -37,8 +37,9 @@ h6 {
 }
 
 #boredpandaImage {
-  /* max-width: 30em; */
   width: 25em;
+  max-width: 30em;
+  max-height: 30em;
 }
 
 blockquote {
@@ -96,6 +97,7 @@ footer p {
   height: 0;
   position: absolute;
   left: -9999px;
+  right: 20px;
 }
 .toggle input + label {
   margin: 0;
